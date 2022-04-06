@@ -27,6 +27,7 @@
   "dependencies": {
     "chai": "^4.3.6",
     "dotenv": "^16.0.0",
+    "mysql2": "^2.3.3",
     "sequelize": "^6.18.0",
     "sinon": "^13.0.1"
   }

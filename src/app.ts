@@ -1,16 +1,18 @@
 import express, { Request, Response, NextFunction } from "express";
 import { sequelize } from "./models";
+import { User } from "./models/user";
 
-const PORT: number = parseInt(process.env.PORT as string);
+import { routes } from "./routes/routes";
+
+const PORT: number = parseInt(process.env.PORT as string) || 8864;
 const HOST: string = process.env.HOST || "localhost";
 
 const app = express();
 
-app.get("/test", (req: Request, res: Response, next: NextFunction) => {
-  const ip = req.headers['x-forwarded-for'] ||  req.socket.remoteAddress;
-  res.send(ip);
-});
+app.use(routes);
 
 app.listen(PORT, HOST, () => {
   console.log(`server start ${HOST}:${PORT}`);
 });
+
+User.sync({force:true});
