@@ -2,7 +2,7 @@
 // import "cahi";
 // import "sinon";
 import { expect } from "chai";
-import { UserModelStatic } from "../models/user";
+import { UserModel, UserModelOptional, UserModelStatic } from "../models/user";
 
 const models = require("./../models");
 
@@ -18,7 +18,9 @@ const models = require("./../models");
 // });
 
 (<UserModelStatic>models.User)
-  .create({
+  .create(<UserModelOptional>{
     user_name: "Test",
+    // user_id1: "asdf",
+
   })
   .then(() => console.log("Data is created!"));
