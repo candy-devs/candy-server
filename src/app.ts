@@ -28,4 +28,4 @@ app.listen(PORT, HOST, () => {
   console.log(`server start ${HOST}:${PORT}`);
 });
 
-// User.sync({ force: true });
+User.sync({ force: true });
