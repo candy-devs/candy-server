@@ -2,11 +2,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import createError from "http-errors";
 import express, { Request, Response, NextFunction } from "express";
-import { sequelize } from "./models";
 
 import { routes } from "./routes/routes";
-
-const models = require("./models");
 
 const PORT: number = parseInt(process.env.PORT as string) || 8864;
 const HOST: string = process.env.HOST || "localhost";
@@ -28,8 +25,3 @@ app.use(function (err: Error, req: Request, res: Response, next: NextFunction)  
 app.listen(PORT, HOST, () => {
   console.log(`server start ${HOST}:${PORT}`);
 });
-
-
-models.User.create({
-  user_name: "Test",
-}).then(() => console.log("Data is created!"));
