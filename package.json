@@ -36,6 +36,7 @@
     "http-errors": "^2.0.0",
     "mysql2": "^2.3.3",
     "sequelize": "^6.18.0",
+    "sequelize-typescript-generator": "^8.1.2",
     "sinon": "^13.0.1"
   }
 }

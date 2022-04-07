@@ -1,4 +1,4 @@
 node_modules/*
 dist/*
 secret.txt
-src/config/config.json
+config/config.json

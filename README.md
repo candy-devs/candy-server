@@ -15,3 +15,12 @@ https://velog.io/@cloudjun/Node-TypeScript-Express%EC%97%90%EC%84%9C-%EC%84%B8%E
 `yarn build` 앱 빌드
 
 `yarn dev` nodemon 모드로 실행
+
+
+## dev settings
+
+```
+npm install -g sequelize-cli-typescript
+sequelize model:generate --name User --attributes user_id:string,user_name:string,password:string,permission:integer
+sequelize db:migrate 
+```
