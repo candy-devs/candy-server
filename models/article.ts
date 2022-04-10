@@ -7,10 +7,10 @@ import { User } from "./user";
 interface ArticleAttributes {
   title: string;
   body: string;
-  upvote: number;
-  view: number;
+  upvote?: number;
+  view?: number;
   board: number;
-  user_id: string;
+  user_id: number;
 }
 
 // https://typescript-kr.github.io/pages/declaration-files/templates/global-plugin.d.ts.html
@@ -23,10 +23,10 @@ export class Article extends Model<ArticleAttributes> {
   declare id: number;
   public title!: string;
   public body!: string;
-  public upvote!: number;
-  public view!: number;
+  public upvote?: number;
+  public view?: number;
   public board!: number;
-  public user_id!: string;
+  public user_id!: number;
 }
 
 Article.init(
@@ -46,10 +46,12 @@ Article.init(
     upvote: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
     },
     view: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
     },
     board: {
       type: DataTypes.INTEGER,

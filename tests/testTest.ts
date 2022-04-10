@@ -2,6 +2,9 @@
 // import "cahi";
 // import "sinon";
 import { expect } from "chai";
+import { sequelize } from "../models";
+import { Article } from "../models/article";
+import { Session } from "../models/session";
 import { User } from "../models/user";
 
 // describe("test", () => {
@@ -27,14 +30,17 @@ loginUser.func = function(this, id: string, pw: string) {
 }
 
 async function run(): Promise<void> {
-  await User.sync({ });
+//  await  sequelize.drop();
+  // await User.sync({ force: true, });
+  // await Article.sync({ force: true, });
+  await Session.sync();
 
-  User.create({
-    user_id: "testid",
-    password: "testpw",
-    user_name: "testname",
-    permission: 0,
-  }).then(() => console.log("Data is created!"));
+  // User.create({
+  //   user_id: "testid",
+  //   password: "testpw",
+  //   user_name: "testname",
+  //   permission: 0,
+  // }).then(() => console.log("Data is created!"));
 }
 
 run();
