@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
-import { sequelize } from "./index";
 import { User } from "./user";
 
+const sequelize = require("./index");
 
 interface SessionAttributes {
   session: string;
@@ -14,6 +14,10 @@ export class Session extends Model<SessionAttributes> {
   public user_id!: number;
   public session!: string;
   public expire!: number;
+}
+
+export class WebToken extends Session {
+  public version!: string;
 }
 
 Session.init(

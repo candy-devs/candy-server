@@ -1,13 +1,11 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+const env = process.env.NODE_ENV || "development";
+const configFile = require(__dirname + "/../config/config.json")[env];
 
 export const config = {
-  development: {
-    username: process.env.DB_USERNAME || "root",
-    password: process.env.DB_PASSWORD || "1234",
-    database: process.env.DB_DBNAME || "test",
-    host: process.env.DB_HOST || "localhost",
-    port: process.env.DB_PORT || 3306,
-    dialect: "mysql",
-  },
+  username: configFile.username,
+  password: configFile.password,
+  database: configFile.database,
+  host: configFile.host,
+  dialect: configFile.dialect,
+  saltwebtokenv1: configFile.saltWebTokenV1,
 };
