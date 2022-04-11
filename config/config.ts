@@ -7,5 +7,7 @@ export const config = {
   database: configFile.database,
   host: configFile.host,
   dialect: configFile.dialect,
-  saltwebtokenv1: configFile.saltWebTokenV1,
+  saltsessionv1: configFile.saltsessionv1,
+  saltwebtokenv1: configFile.saltwebtokenv1,
+  issuer: configFile.issuer,
 };

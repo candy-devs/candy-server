@@ -4,20 +4,16 @@ import { User } from "./user";
 const sequelize = require("./index");
 
 interface SessionAttributes {
-  session: string;
+  session?: string;
   user_id: number;
-  expire: number;
+  expire?: number;
 }
 
 export class Session extends Model<SessionAttributes> {
   declare id: number;
   public user_id!: number;
-  public session!: string;
-  public expire!: number;
-}
-
-export class WebToken extends Session {
-  public version!: string;
+  public session?: string;
+  public expire?: number;
 }
 
 Session.init(
