@@ -14,7 +14,7 @@ https://velog.io/@cloudjun/Node-TypeScript-Express%EC%97%90%EC%84%9C-%EC%84%B8%E
 
 `yarn build` 앱 빌드
 
-`yarn dev` nodemon 모드로 실행
+`yarn dev` tsc-watch 모드로 실행
 
 
 ## dev settings
