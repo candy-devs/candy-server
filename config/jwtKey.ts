@@ -1,4 +1,4 @@
 import * as fs from 'fs';
 
-export const privateKey = fs.readFileSync('testPrivate.pem').toString();
-export const publicKey = fs.readFileSync('testPublic.pem').toString();
+export const privateKey = fs.readFileSync('config/testPrivate.pem').toString();
+export const publicKey = fs.readFileSync('config/testPublic.pem').toString();
