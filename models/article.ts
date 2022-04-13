@@ -1,7 +1,8 @@
 import { Model, DataTypes } from "sequelize";
 import { User } from "./user";
+import { sequelize } from "./index";
 
-const sequelize = require("./index");
+// const sequelize = require("./index");
 
 // https://runebook.dev/ko/docs/sequelize/manual/typescript
 
