@@ -1,6 +1,6 @@
 import { Session } from "../models/session";
-import * as jwt from "jsonwebtoken";
 import { publicKey } from "../config/jwtKey";
+import * as jwt from "jsonwebtoken";
 import * as _createSession from "../session/createSession";
 import * as _createJWT from "../session/createJWT";
 
@@ -12,7 +12,7 @@ export async function createSession(user_id: number): Promise<string | null> {
     user_id: user_id,
     expire: Date.now() + 60000 * 60,
   });
- 
+
   return sess.session!;
 }
 
@@ -23,7 +23,9 @@ export async function refershSession(user_id: number) {
   );
 }
 
-export function refreshJWT(refreshToken: string) {}
+export function refreshJWT(refreshToken: string) {
+  
+}
 
 export function createJWT(user_id: number): string {
   return _createJWT.createJWT(user_id);
