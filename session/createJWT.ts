@@ -26,8 +26,8 @@ export function createJWT(user_id: number): string {
     issuer: config.issuer,
   };
 
-  const refreshToken = jwt.sign(accessPayload, privateKey, refreshTokenOptions);
-  const accessToken = jwt.sign(refreshPayload, privateKey, accessTokenOptions);
+  const refreshToken = jwt.sign(refreshPayload, privateKey, refreshTokenOptions);
+  const accessToken = jwt.sign(accessPayload, privateKey, accessTokenOptions);
 
   return JSON.stringify({
     refreshToken: refreshToken,
