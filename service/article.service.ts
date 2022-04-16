@@ -1,4 +1,5 @@
 import { Article } from "../models/article";
+import { User } from "../models/user";
 import { ArticleWriteInterface } from "../schema/article.schema";
 import { getUserInfoBySession } from "./session.service";
 
@@ -9,8 +10,7 @@ export async function writeArticle(
 
   if (sess === null) return -1;
 
-  if (typeof sess == 'number')
-    return sess;
+  if (typeof sess == "number") return sess;
 
   var data = await Article.create({
     user_id: sess.user_id,
@@ -20,4 +20,10 @@ export async function writeArticle(
   });
 
   return data.id;
+}
+
+export async function readArticle(id: number): Promise<Article | null> {
+  return await Article.findByPk(id, {
+    include: [{ model: User, attributes: ["user_id"] }],
+  });
 }

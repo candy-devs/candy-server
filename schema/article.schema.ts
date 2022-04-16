@@ -12,3 +12,7 @@ export const writeSchema = Joi.object({
   title: Joi.string().max(64).required(),
   body: Joi.string().max(65535).required(),
 });
+
+export const readSchema = Joi.object( {
+  id: Joi.number().integer().min(0).required(),
+});
