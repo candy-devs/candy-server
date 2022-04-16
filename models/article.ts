@@ -7,6 +7,7 @@ import { sequelize } from "./index";
 // https://runebook.dev/ko/docs/sequelize/manual/typescript
 
 interface ArticleAttributes {
+  id?: number;
   title: string;
   body: string;
   upvote?: number;
@@ -33,6 +34,11 @@ export class Article extends Model<ArticleAttributes> {
 
 Article.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

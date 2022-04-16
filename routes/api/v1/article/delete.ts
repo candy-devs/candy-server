@@ -1,18 +1,15 @@
 import express, { Request, Response, NextFunction } from "express";
-import {
-  ArticleWriteInterface,
-  writeSchema,
-} from "../../../../schema/article.schema";
-import { writeArticle } from "../../../../service/article.service";
+import { ArticleDeleteInterface, deleteSchema } from "../../../../schema/article.schema";
+import { deleteArticle } from "../../../../service/article.service";
 
 const router = express.Router();
 
-router.post(
+router.delete(
   "/",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const value = await writeSchema.validateAsync(req.body);
-      const result = await writeArticle(value as ArticleWriteInterface);
+      const value = await deleteSchema.validateAsync(req.body);
+      const result = await deleteArticle(value as ArticleDeleteInterface);
 
       if (result < 0)
         res.status(403).send();

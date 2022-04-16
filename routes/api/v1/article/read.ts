@@ -5,7 +5,7 @@ import { readArticle } from "../../../../service/article.service";
 const router = express.Router();
 
 router.get(
-  "/read/:id",
+  "/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const value = await readSchema.validateAsync(req.params);
