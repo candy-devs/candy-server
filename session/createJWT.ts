@@ -22,7 +22,7 @@ export function createJWT(user_id: number): string {
   const refreshToken = jwt.sign(payload, privateKey, refreshTokenOptions);
   const accessToken = jwt.sign(payload, privateKey, accessTokenOptions);
 
-  return 'jwt-' + JSON.stringify({
+  return JSON.stringify({
     refreshToken: refreshToken,
     accessToken: accessToken,
   })
