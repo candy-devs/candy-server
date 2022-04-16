@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken";
-import { config } from "../config/config";
+import config from "../config/config";
 import { privateKey } from "../config/jwtKey";
 
 export function createJWT(user_id: number): string {
