@@ -26,3 +26,5 @@ app.use(function (err: Error, req: Request, res: Response, next: NextFunction)  
 app.listen(PORT, HOST, () => {
   console.log(`server start ${HOST}:${PORT}`);
 });
+
+export default app;

@@ -9,6 +9,7 @@ export interface ArticleWriteInterface {
 
 export const writeSchema = Joi.object({
   sess: Joi.string().max(512).required(),
+  board: Joi.number().integer().min(0).required(),
   title: Joi.string().max(64).required(),
   body: Joi.string().max(65535).required(),
 });

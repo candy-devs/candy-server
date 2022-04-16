@@ -1,6 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import { Article } from "../../../../models/article";
-import { User } from "../../../../models/user";
 import { readSchema } from "../../../../schema/article.schema";
 import { readArticle } from "../../../../service/article.service";
 
