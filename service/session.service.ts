@@ -33,7 +33,7 @@ export function createJWT(user_id: number): string {
 
 export async function getUserInfoBySession(
   session: string
-): Promise<Session | number | null> {
+): Promise<Session | null> {
   if (session.startsWith("jwt-")) {
     return await verifyJWT(session);
   }
@@ -54,7 +54,7 @@ export async function getUserInfoBySession(
 
 export async function verifyJWT(
   session: string
-): Promise<Session | number | null> {
+): Promise<Session | null> {
   session = session.substring(4);
 
   var decoded = jwt.verify(session, publicKey);

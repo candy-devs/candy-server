@@ -12,7 +12,6 @@ export async function writeArticle(
 ): Promise<number> {
   const sess = await getUserInfoBySession(req.sess);
   if (sess === null) return -1;
-  if (typeof sess == "number") return sess;
 
   const data = await Article.create({
     user_id: sess.user_id,
@@ -37,7 +36,6 @@ export async function deleteArticle(
 ): Promise<number> {
   const sess = await getUserInfoBySession(req.sess);
   if (sess === null) return -1;
-  if (typeof sess == "number") return sess;
 
   // result가 0이라면 삭제할 Row가 없음
   // result가 1이라면 삭제됨
