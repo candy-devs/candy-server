@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import { readSchema } from "../../../../schema/article.schema";
+import { ArticleReadInterface, readSchema } from "../../../../schema/article.schema";
 import { readArticle } from "../../../../service/article.service";
 
 const router = express.Router();
@@ -9,7 +9,7 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const value = await readSchema.validateAsync(req.params);
-      const article = await readArticle(value.id);
+      const article = await readArticle(value as ArticleReadInterface);
 
       if (article == null) {
         res.status(404).send();
