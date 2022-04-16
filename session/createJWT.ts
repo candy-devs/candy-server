@@ -1,10 +1,17 @@
+import { access } from "fs";
 import * as jwt from "jsonwebtoken";
 import config from "../config/config";
 import { privateKey } from "../config/jwtKey";
 
 export function createJWT(user_id: number): string {
-  const payload = {
-    id: user_id,
+  const accessPayload = {
+    user_id: user_id,
+    type: 'access',
+  };
+
+  const refreshPayload = {
+    accessPayload: accessPayload,
+    type:'refresh',
   };
 
   const refreshTokenOptions: jwt.SignOptions = {
@@ -19,8 +26,8 @@ export function createJWT(user_id: number): string {
     issuer: config.issuer,
   };
 
-  const refreshToken = jwt.sign(payload, privateKey, refreshTokenOptions);
-  const accessToken = jwt.sign(payload, privateKey, accessTokenOptions);
+  const refreshToken = jwt.sign(accessPayload, privateKey, refreshTokenOptions);
+  const accessToken = jwt.sign(refreshPayload, privateKey, accessTokenOptions);
 
   return JSON.stringify({
     refreshToken: refreshToken,
