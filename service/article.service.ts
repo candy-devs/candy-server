@@ -9,6 +9,12 @@ import {
 import { getUserInfoBySession } from "./session.service";
 import { createHash } from "crypto";
 
+function getEncryptedPassword(password: string): string {
+  return createHash("sha1")
+    .update(password)
+    .digest("hex");
+}
+
 export async function writeArticle(
   req: ArticleWriteInterface,
   authorIp: string
@@ -28,9 +34,7 @@ async function writeArticleAnonymous(
 ): Promise<ArticleWriteResultCode | number> {
   if (req.password === null) return ArticleWriteResultCode.passwordMissing;
 
-  const encryptedPassword = createHash("sha1")
-    .update(req.password!)
-    .digest("hex");
+  const encryptedPassword = getEncryptedPassword(req.password!);
 
   const data = await Article.create({
     board: req.board,
@@ -89,13 +93,33 @@ export async function readArticle(
 export async function deleteArticle(
   req: ArticleDeleteInterface
 ): Promise<number> {
-  const sess = await getUserInfoBySession(req.sess);
+  if (req.password !== null) {
+    return await deleteArticleAnonymous(req);
+  }
+
+  return await deleteArticleLogined(req);
+}
+
+async function deleteArticleAnonymous(req: ArticleDeleteInterface): Promise<number>  {
+  const sess = await getUserInfoBySession(req.sess!);
   if (sess === null) return -1;
 
   // result가 0이라면 삭제할 Row가 없음
   // result가 1이라면 삭제됨
   const result = await Article.destroy({
     where: { id: req.id, user_id: sess.user_id },
+  });
+
+  return result - 1;
+}
+
+async function deleteArticleLogined(req: ArticleDeleteInterface): Promise<number>  {
+  const encryptedPassword = getEncryptedPassword(req.password!);
+
+  // result가 0이라면 삭제할 Row가 없음
+  // result가 1이라면 삭제됨
+  const result = await Article.destroy({
+    where: { id: req.id, password: encryptedPassword },
   });
 
   return result - 1;

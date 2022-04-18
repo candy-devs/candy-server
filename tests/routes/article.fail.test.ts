@@ -23,4 +23,15 @@ describe("Article Fail Test", () => {
         done();
       });
   });
+  
+  // type이 1이라면 password는 empty여야함.
+  it("Article Write Fail Type Missmatch", (done) => {
+    request(app)
+      .post("/api/v1/article")
+      .send({ board: 0, title: "test title", body: "test body", type: 1, password: 'asdf' })
+      .then((res) => {
+        expect(res.statusCode).toEqual(400);
+        done();
+      });
+  });
 });
