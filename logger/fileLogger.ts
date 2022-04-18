@@ -1,6 +1,6 @@
-import { createLogger, format, transports } from 'winston';
-const { combine, timestamp, printf, json, splat, prettyPrint } = format;
-import 'winston-daily-rotate-file';
+import { createLogger, format, transports } from "winston";
+const { combine, timestamp, printf, json, splat, prettyPrint, metadata } = format;
+import "winston-daily-rotate-file";
 
 const myFormat = printf(({ level, message, label, timestamp }) => {
   return `${timestamp} - ${level}: ${JSON.stringify(message, null, 2)}`;
@@ -12,14 +12,8 @@ var transport = new transports.DailyRotateFile({
 });
 
 var fileLogger = createLogger({
-  format: combine(
-    timestamp(),
-    json(),
-    splat(),
-    prettyPrint(),
-    myFormat,
-  ),
-  transports: [transport],
+  format: combine(timestamp(), json(), splat(), prettyPrint(), myFormat),
+  transports: [transport, new transports.Console()],
 });
 
 export = fileLogger;
