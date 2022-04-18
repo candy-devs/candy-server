@@ -13,7 +13,9 @@ interface ArticleAttributes {
   upvote?: number;
   view?: number;
   board: number;
-  user_id: number;
+  user_id?: number;
+  author?: string;
+  password?: string;
 }
 
 // https://typescript-kr.github.io/pages/declaration-files/templates/global-plugin.d.ts.html
@@ -29,7 +31,9 @@ export class Article extends Model<ArticleAttributes> {
   public upvote?: number;
   public view?: number;
   public board!: number;
-  public user_id!: number;
+  public user_id?: number;
+  public author?: string;
+  public password?: string;
 }
 
 Article.init(
@@ -41,7 +45,15 @@ Article.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+    },
+    author: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     title: {
       type: DataTypes.STRING(50),

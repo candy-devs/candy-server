@@ -12,7 +12,8 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const value = await writeSchema.validateAsync(req.body);
-      const result = await writeArticle(value as ArticleWriteInterface);
+      const reqIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress ;
+      const result = await writeArticle(value as ArticleWriteInterface, reqIp as string);
 
       if (result < 0)
         res.status(403).send();

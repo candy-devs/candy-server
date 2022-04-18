@@ -3,7 +3,7 @@ import app from "../../app";
 import { createJWT } from "../../session/createJWT";
 
 describe("Article Test", () => {
-  it("Article Write", (done) => {
+  it("Article Write Logined JWT", (done) => {
     const testUserId = 1;
 
     const jwtRaw = createJWT(testUserId);
@@ -19,7 +19,7 @@ describe("Article Test", () => {
       });
   });
 
-  it("Article Delete", (done) => {
+  it("Article Delete Logined JWT", (done) => {
     const testUserId = 1;
 
     const jwtRaw = createJWT(testUserId);
