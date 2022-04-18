@@ -3,6 +3,16 @@ import app from "../../app";
 import { createJWT } from "../../session/createJWT";
 
 describe("Article Test", () => {
+  it("Article Write Anonymous", (done) => {
+    request(app)
+      .post("/api/v1/article")
+      .send({ board: 0, title: "test title", body: "test body", type: 0, password: 'testpass' })
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        done();
+      });
+  });
+
   it("Article Write Logined JWT", (done) => {
     const testUserId = 1;
 
@@ -12,7 +22,7 @@ describe("Article Test", () => {
 
     request(app)
       .post("/api/v1/article")
-      .send({ sess: "jwt-" + jwtAccess, board: 0, title: "test title", body: "test body" })
+      .send({ sess: "jwt-" + jwtAccess, board: 0, title: "test title", body: "test body", type: 1 })
       .then((res) => {
         expect(res.statusCode).toEqual(200);
         done();

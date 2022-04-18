@@ -1,7 +1,7 @@
 
 
 import * as crypto from "crypto";
-import config from "../config/config";
+import { config } from "../config/config";
 
 export function createSession(user_id: number, expire: number): string {
   let mac = crypto.createHash('sha512');

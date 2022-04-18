@@ -1,17 +1,17 @@
 import { access } from "fs";
 import * as jwt from "jsonwebtoken";
-import config from "../config/config";
+import { config } from "../config/config";
 import { privateKey } from "../config/jwtKey";
 
 export function createJWT(user_id: number): string {
   const accessPayload = {
     user_id: user_id,
-    type: 'access',
+    type: "access",
   };
 
   const refreshPayload = {
     accessPayload: accessPayload,
-    type:'refresh',
+    type: "refresh",
   };
 
   const refreshTokenOptions: jwt.SignOptions = {
@@ -26,11 +26,15 @@ export function createJWT(user_id: number): string {
     issuer: config.issuer,
   };
 
-  const refreshToken = jwt.sign(refreshPayload, privateKey, refreshTokenOptions);
+  const refreshToken = jwt.sign(
+    refreshPayload,
+    privateKey,
+    refreshTokenOptions
+  );
   const accessToken = jwt.sign(accessPayload, privateKey, accessTokenOptions);
 
   return JSON.stringify({
     refreshToken: refreshToken,
     accessToken: accessToken,
-  })
+  });
 }

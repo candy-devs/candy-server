@@ -1,7 +1,7 @@
 const env = process.env.NODE_ENV || "development";
-const configFile = require(__dirname + "/../config/config.json")[env];
+const configFile = require(__dirname + "/../private/config.json")[env];
 
-const config = {
+export const config = {
   username: configFile.username,
   password: configFile.password,
   database: configFile.database,
@@ -11,5 +11,3 @@ const config = {
   saltwebtokenv1: configFile.saltwebtokenv1,
   issuer: configFile.issuer,
 };
-
-export default config;
