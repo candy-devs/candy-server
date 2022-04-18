@@ -38,6 +38,7 @@
     "@types/config": "^0.0.41",
     "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^8.5.8",
+    "@types/winston": "^2.4.4",
     "axios": "^0.26.1",
     "config": "^3.3.7",
     "cookie-parser": "^1.4.6",
@@ -50,6 +51,8 @@
     "mysql2": "^2.3.3",
     "sequelize": "^6.18.0",
     "sequelize-typescript-generator": "^8.1.2",
-    "sinon": "^13.0.1"
+    "sinon": "^13.0.1",
+    "winston": "^3.7.2",
+    "winston-daily-rotate-file": "^4.6.1"
   }
 }
