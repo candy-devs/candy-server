@@ -11,7 +11,7 @@ var transport = new transports.DailyRotateFile({
   datePattern: "YYYY-MM-DD",
 });
 
-var logger = createLogger({
+var fileLogger = createLogger({
   format: combine(
     timestamp(),
     json(),
@@ -22,4 +22,4 @@ var logger = createLogger({
   transports: [transport],
 });
 
-export default logger;
+export = fileLogger;
