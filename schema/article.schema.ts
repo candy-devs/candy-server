@@ -18,7 +18,7 @@ export const writeSchema = Joi.object({
   body: Joi.string().max(65535).required(),
   board: Joi.number().integer().min(0).required(),
   type: Joi.number().integer().min(0).required(),
-  password: Joi.string().max(64).required(),
+  password: Joi.string().min(4).max(64).required(),
 });
 
 export enum ArticleWriteResultCode {

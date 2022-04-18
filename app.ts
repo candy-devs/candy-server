@@ -10,7 +10,7 @@ const HOST: string = process.env.HOST || "localhost";
 
 const app = express();
 
-app.disable('x-powered-by');
+app.disable("x-powered-by");
 app.use(cors());
 
 app.use(express.json());
@@ -19,12 +19,14 @@ app.use(cookieParser());
 
 app.use(routes);
 
-app.use(function (err: Error, req: Request, res: Response, next: NextFunction)  {
+app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
   next(createError(404));
 });
 
-app.listen(PORT, HOST, () => {
-  console.log(`server start ${HOST}:${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, HOST, () => {
+    console.log(`server start ${HOST}:${PORT}`);
+  });
+}
 
 export default app;
