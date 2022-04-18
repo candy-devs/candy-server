@@ -9,5 +9,6 @@ export const config = {
   dialect: configFile.dialect,
   saltsessionv1: configFile.saltsessionv1,
   saltwebtokenv1: configFile.saltwebtokenv1,
+  saltarticlepassword: configFile.saltarticlepassword,
   issuer: configFile.issuer,
 };

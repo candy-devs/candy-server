@@ -8,10 +8,11 @@ import {
 } from "../schema/article.schema";
 import { getUserInfoBySession } from "./session.service";
 import { createHash } from "crypto";
+import { config } from "../config/config";
 
 function getEncryptedPassword(password: string): string {
   return createHash("sha1")
-    .update(password)
+    .update(password + config.saltarticlepassword)
     .digest("hex");
 }
 
