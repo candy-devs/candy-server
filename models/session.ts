@@ -7,14 +7,14 @@ import { sequelize } from "./index";
 interface SessionAttributes {
   session?: string;
   user_id: number;
-  expire?: number;
+  expire?: Date;
 }
 
 export class Session extends Model<SessionAttributes> {
   declare id: number;
   public user_id!: number;
   public session?: string;
-  public expire?: number;
+  public expire?: Date;
 }
 
 Session.init(
@@ -24,7 +24,7 @@ Session.init(
       allowNull: false,
     },
     session: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING(128),
       allowNull: false
     },
     expire: {

@@ -4,7 +4,7 @@ import { sequelize } from "./index";
 // https://runebook.dev/ko/docs/sequelize/manual/typescript
 
 interface UserAttributes {
-  user_id: string;
+  user_id?: string;
   password: string;
   user_name: string;
   permission: number;
@@ -28,7 +28,7 @@ User.init(
   {
     user_id: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     password: {
       type: DataTypes.STRING(150),

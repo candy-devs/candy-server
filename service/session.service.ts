@@ -10,7 +10,7 @@ export async function createSession(user_id: number): Promise<string | null> {
   var sess = await Session.create({
     session: _createSession.createSession(user_id, expire),
     user_id: user_id,
-    expire: Date.now() + 60000 * 60,
+    expire: new Date(expire),
   });
 
   return sess.session!;
@@ -18,7 +18,7 @@ export async function createSession(user_id: number): Promise<string | null> {
 
 export async function refershSession(user_id: number) {
   await Session.update(
-    { expire: Date.now() + 60000 * 60 },
+    { expire: new Date(Date.now() + 60000 * 60 ) },
     { where: { user_id: user_id } }
   );
 }
@@ -47,7 +47,7 @@ export async function getUserInfoBySession(
 
   // if current session is expired
   if (sess.expire === null) return null;
-  if (sess.expire! > Date.now()) return null;
+  if (sess.expire!.getUTCMilliseconds() > Date.now()) return null;
 
   return sess;
 }
