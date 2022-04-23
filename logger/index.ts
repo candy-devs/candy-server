@@ -27,6 +27,10 @@ export class LogInfo {
     }
 
     if (this.req !== undefined) {
+      if (this.req?.session !== undefined) {
+        result['sess'] = this.req.sessionID;
+      }
+      
       const reqIp =
         this.req.headers["x-forwarded-for"] || this.req.socket.remoteAddress;
       const route = this.req.originalUrl;

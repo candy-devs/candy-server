@@ -11,4 +11,15 @@ export const config = {
   saltwebtokenv1: configFile.saltwebtokenv1,
   saltarticlepassword: configFile.saltarticlepassword,
   issuer: configFile.issuer,
+  session: {
+    secret: configFile.session.secret,
+    host: configFile.session.host,
+    username: configFile.session.username,
+    password: configFile.session.password,
+    database: configFile.session.database,
+    secure: configFile.session.secure,
+    cache: {
+      host: configFile.session.cache.host,
+    }
+  }
 };

@@ -6,7 +6,7 @@ import {
   ArticleWriteInterface,
   ArticleWriteResultCode,
 } from "../schema/article.schema";
-import { getUserInfoBySession } from "./session.service";
+import { getUserInfoBySession } from "./auth.service";
 import { createHash } from "crypto";
 import { config } from "../config/config";
 
