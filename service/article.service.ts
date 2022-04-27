@@ -6,9 +6,11 @@ import {
   ArticleWriteInterface,
   ArticleWriteResultCode,
 } from "../schema/article.schema";
-import { getUserInfoBySession } from "./auth.service";
+// import { getUserInfoBySession } from "./auth/auth.service";
 import { createHash } from "crypto";
 import { config } from "../config/config";
+import { Request } from "express";
+import { getUserLoginInfo } from "./auth/auth.service";
 
 function getEncryptedPassword(password: string): string {
   return createHash("sha1")
@@ -17,16 +19,17 @@ function getEncryptedPassword(password: string): string {
 }
 
 export async function writeArticle(
-  req: ArticleWriteInterface,
+  req: Request,
+  data: ArticleWriteInterface,
   authorIp: string
 ): Promise<ArticleWriteResultCode | number> {
-  if (req.type == 1) {
-    return await writeArticleLogined(req);
-  } else if (req.type == 2) {
-    return await writeArticleLoginedAnonymous(req, authorIp);
+  if (data.type == 1) {
+    return await writeArticleLogined(req, data);
+  } else if (data.type == 2) {
+    return await writeArticleLoginedAnonymous(req, data, authorIp);
   }
 
-  return await writeArticleAnonymous(req, authorIp);
+  return await writeArticleAnonymous(data, authorIp);
 }
 
 async function writeArticleAnonymous(
@@ -49,37 +52,39 @@ async function writeArticleAnonymous(
 }
 
 async function writeArticleLogined(
-  req: ArticleWriteInterface
+  req: Request,
+  data: ArticleWriteInterface
 ): Promise<ArticleWriteResultCode | number> {
-  const sess = await getUserInfoBySession(req.sess);
-  if (sess === null) return ArticleWriteResultCode.sessionExpired;
+  const loginInfo = getUserLoginInfo(req);
+  if (loginInfo === null) return ArticleWriteResultCode.unknownError;
 
-  const data = await Article.create({
-    user_id: sess.user_id,
-    board: req.board,
-    title: req.title,
+  const article = await Article.create({
+    user_id: loginInfo.id,
+    board: data.board,
+    title: data.title,
     body: req.body,
   });
 
-  return data.id;
+  return article.id;
 }
 
 async function writeArticleLoginedAnonymous(
-  req: ArticleWriteInterface,
+  req: Request,
+  data: ArticleWriteInterface,
   authorIp: string
 ): Promise<ArticleWriteResultCode | number> {
-  const sess = await getUserInfoBySession(req.sess);
-  if (sess === null) return ArticleWriteResultCode.sessionExpired;
+  const loginInfo = getUserLoginInfo(req);
+  if (loginInfo === null) return ArticleWriteResultCode.unknownError;
 
-  const data = await Article.create({
-    user_id: sess.user_id,
-    board: req.board,
-    title: req.title,
+  const article = await Article.create({
+    user_id: loginInfo.id,
+    board: data.board,
+    title: data.title,
     body: req.body,
     author: authorIp,
   });
 
-  return data.id;
+  return article.id;
 }
 
 export async function readArticle(
@@ -92,35 +97,41 @@ export async function readArticle(
 }
 
 export async function deleteArticle(
-  req: ArticleDeleteInterface
+  req: Request,
+  data: ArticleDeleteInterface
 ): Promise<number> {
-  if (req.password !== null) {
-    return await deleteArticleAnonymous(req);
+  if (data.password !== null) {
+    return await deleteArticleAnonymous(data);
   }
 
-  return await deleteArticleLogined(req);
+  return await deleteArticleLogined(req, data);
 }
 
-async function deleteArticleAnonymous(req: ArticleDeleteInterface): Promise<number>  {
-  const sess = await getUserInfoBySession(req.sess!);
-  if (sess === null) return -1;
+async function deleteArticleLogined(
+  req: Request,
+  data: ArticleDeleteInterface
+): Promise<number> {
+  const loginInfo = getUserLoginInfo(req);
+  if (loginInfo === null) return ArticleWriteResultCode.unknownError;
 
   // result가 0이라면 삭제할 Row가 없음
   // result가 1이라면 삭제됨
   const result = await Article.destroy({
-    where: { id: req.id, user_id: sess.user_id },
+    where: { id: data.id, user_id: loginInfo.id },
   });
 
   return result - 1;
 }
 
-async function deleteArticleLogined(req: ArticleDeleteInterface): Promise<number>  {
-  const encryptedPassword = getEncryptedPassword(req.password!);
+async function deleteArticleAnonymous(
+  data: ArticleDeleteInterface
+): Promise<number> {
+  const encryptedPassword = getEncryptedPassword(data.password!);
 
   // result가 0이라면 삭제할 Row가 없음
   // result가 1이라면 삭제됨
   const result = await Article.destroy({
-    where: { id: req.id, password: encryptedPassword },
+    where: { id: data.id, password: encryptedPassword },
   });
 
   return result - 1;

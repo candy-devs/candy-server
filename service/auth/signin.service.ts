@@ -1,32 +1,12 @@
-import { User } from "../models/user";
-import { SigninInterface, SigninResultCode } from "../schema/auth.schema";
-import * as crypto from "crypto";
-import { config } from "../config/config";
+import { User } from "../../models/user";
+import { SigninInterface, SigninResultCode } from "../../schema/auth.schema";
 import { Op } from "sequelize";
-
-function checkCorrectPasswordFormat(pw: string): boolean {
-  // 숫자 하나 이상
-  // 문자 하나 이상
-  // 9자 이상, 256자 이하
-  const re = new RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{9,256})");
-  return re.test(pw);
-}
-
-function checkCorrectIdFormat(id: string): boolean {
-  const re = new RegExp("^\\w{6,64}");
-  return re.test(id);
-}
-
-function checkCorrectNicknameFormat(nick: string): boolean {
-  return true;
-}
-
-function password2HashedPassword(pw: string): string {
-  return crypto
-    .createHash("sha256")
-    .update(pw + config.saltuserpassword)
-    .digest("hex");
-}
+import {
+  checkCorrectIdFormat,
+  checkCorrectNicknameFormat,
+  checkCorrectPasswordFormat,
+  password2HashedPassword,
+} from "../utils/auth.util";
 
 async function checkUserExists(value: SigninInterface): Promise<boolean> {
   const cnt = await User.count({
