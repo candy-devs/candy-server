@@ -10,6 +10,7 @@ export const config = {
   saltsessionv1: configFile.saltsessionv1,
   saltwebtokenv1: configFile.saltwebtokenv1,
   saltarticlepassword: configFile.saltarticlepassword,
+  saltuserpassword: configFile.saltuserpassword,
   issuer: configFile.issuer,
   session: {
     secret: configFile.session.secret,
