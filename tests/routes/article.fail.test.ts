@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../../app";
 import { ArticleWriteResultCode } from "../../schema/article.schema";
-import { createJWT } from "../../session/createJWT";
+import { createJWT } from "../../auth/jwt/createJWT";
 
 describe("Article Fail Test", () => {
   it("Article Write Anonymous Fail Password Missing", (done) => {

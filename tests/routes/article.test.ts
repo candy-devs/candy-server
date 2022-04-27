@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "../../app";
-import { createJWT } from "../../session/createJWT";
+import { createJWT } from "../../auth/jwt/createJWT";
 
 describe("Article Test", () => {
   it("Article Write Anonymous", (done) => {

@@ -13,7 +13,7 @@ router.get(
       const article = await readArticle(value as ArticleReadInterface);
 
       logger.info(LogInfo.create({req: req}));
-      
+
       if (article == null) {
         res.status(404).send();
       } else {
