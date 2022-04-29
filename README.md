@@ -2,7 +2,13 @@
 
 `CANDY`
 
+## resources
+
+ERD: https://www.erdcloud.com/d/csKaRgRcni4XsYBtJ
+
 ## ref
+
+ERD Ref: https://www.erdcloud.com/d/wNtbZdTQkjqehzKgn
 
 https://velog.io/@qhgus/Node-Express-TypeScript-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85
 
